@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Levi CineList</string>
+    <string name="title_activity_main">Levi CineList</string>
+    <string name="package_name">io.ionic.leviscinelist</string>
+    <string name="custom_url_scheme">io.ionic.leviscinelist</string>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="100dp">
+
+        <TextView
+            android:id="@+id/textView_levis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LEVI'S"
+            android:textColor="@android:color/holo_orange_light"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/textView_cinelist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" CINELIST"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="40sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/SplashScreenImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/splash" />
+
+</RelativeLayout>

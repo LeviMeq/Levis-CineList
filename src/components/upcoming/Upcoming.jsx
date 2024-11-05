@@ -1,31 +1,51 @@
-import React, { useState, useEffect } from "react";
-import UpcomingCard from "../upcomingCard";
-import { Box } from "@material-ui/core";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import {
+  Box,
 
-const axios = require("axios").default;
+} from "@mui/material";
+
+import axios from "axios";
+import Cards from "../Cards";
+import SplitButton from "../SplitButton";
+import { MyContext } from "../../MyContext";
 
 export default function Upcoming() {
+  const options = ["upcoming", "top_rated", "popular", "now_playing"];
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [result, setResult] = useState([]);
-  const keyApi = "364fffaf789c0926a3a96a592902b53b";
+  const { state, setState } = useContext(MyContext);
+  const keyApi = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/movie/upcoming?api_key=${keyApi}&language=en-US&page=1&include_adult=false`
-      )
-      .then(function (response) {
+    // Utilisez une fonction async pour gérer la requête
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/${options[selectedIndex]}?api_key=${keyApi}&language=${state.lang}&page=1&include_adult=false`
+        );
         setResult(response.data.results);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
+        console.log('response', response.data.results);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
+  }, [keyApi, selectedIndex, state]); // Ajoutez `keyApi` comme dépendance si nécessaire
+
+  const handleMenuItemClick = (event, index) => {
+    setSelectedIndex(index);
+  };
 
   return (
-    <Box>
-      <h2>The Upcoming movies</h2>
-      <Box style={{marginTop: 10}}>
-        <UpcomingCard datas={result} />
+    <Box style={{ padding: 0 }}>
+      {result.length > 0 && (
+        <Box sx={{ textAlign: "left", marginLeft: 2, }}>
+          <SplitButton optionsProps={options} selectedIndexProps={handleMenuItemClick} />
+        </Box>
+      )}
+      <Box style={{ marginTop: 10, padding: 0 }}>
+        <Cards datas={result} />
       </Box>
     </Box>
   );

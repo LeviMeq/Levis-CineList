@@ -1,25 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300&display=swap');
 
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-.head {
-  height: 30px;
+body {
+  background: linear-gradient(to bottom, #585858, #383838);
+  min-height: 99vh;
+ }
+
+/* global.css */
+::-webkit-scrollbar {
+  width: 0px; /* Largeur de la scrollbar */
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Couleur de fond de la scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to top, orange, orangered);
+  /* background-color: orange; Couleur de la barre de défilement */
+  border-radius: 20px; /* Bord arrondi de la barre de défilement */
+  /* border: 6px solid transparent; */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  transition: 0.3s;
+  background-color: orangered; /* Couleur de la barre au survol */
+}
+
+.footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #fc4a1a;
-  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to top, #FFA500, #fc4a1a);
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to top, #FFA500, #fc4a1a);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  text-shadow: 0 0 2px #fffb00, 0 0 30px #fffb00, 0px 0px 5px #fffb00, 0 0 150px #fffb00;
-  color: #fffb00;
-  background-color: #2E8ECE;
-  font-size: 20px;
+  color: orange;
+  font-size: 30px;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 2px;
+  /* position: absolute; */
+  width: 100%; 
+  height: 50px;
+  bottom: 0; 
+  left: 0; 
+  right: 0;
+  /* margin-top: 250px; */
+  background-color: red;
 }
 
 .App {
@@ -34,8 +65,14 @@
 
 .cards {
   width: 120px;
+  max-height: 350px;
 }
 
+.cardActions {
+  font-size: 50px;
+  /* display: flex; */
+  background-color: #fc4a1a;
+}
 .upcomingCl {
   margin-top: 30px;
 }
@@ -65,16 +102,16 @@
 }
 
 .contenu {
-  border-radius: 10px;
+  border-radius: 20px;
   width: 500px;
   /* height: 200px; */
-  background: #f1f1f1;
+  /* background: #f1f1f1; */
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   overflow: hidden;
-  background: rgb(219, 218, 218);
+  /* background: rgb(219, 218, 218); */
 }
 
 .btnClose {

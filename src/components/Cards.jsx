@@ -1,34 +1,30 @@
 import React from "react";
-import {
-  makeStyles,
-  Grid,
-  Box
-} from "@material-ui/core";
+import { styled, Grid, Box } from "@mui/material";
 import Try from "./Try";
 
-const useStyles = makeStyles({
-  root: {
-    margin: 10,
-  },
-  media: {
-  },
-});
+const RootBox = styled(Box)(({ theme }) => ({
+  // padding: 0,
+  // margin: 0,
+}));
+
+const ScrollContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  overflowX: 'auto',
+  padding: theme.spacing(1),
+}));
 
 export default function Cards(props) {
-  const classes = useStyles();
-  // const datta = JSON.parse(localStorage.getItem("name"))
-  
   return (
-    <Box>
-      <Grid container className={classes.root} spacing={2}>
-        <Grid item xs={12}>
-          <Grid container justify="center" spacing={2}>
-            {props.datas.map((movie, index) => {
-              return <Try movie={movie} />;
-            })}
-          </Grid>
+    // <RootBox>
+      <ScrollContainer>
+        <Grid container spacing={2} wrap="nowrap">
+          {props.datas.map((movie, index) => (
+            <Grid item key={index} xs={5} sm={3} md={1.5} style={{ minWidth: 150 }} >
+              <Try movie={movie}/>
+            </Grid>
+          ))}
         </Grid>
-      </Grid>
-    </Box>
+      </ScrollContainer>
+    // </RootBox>
   );
 }

@@ -11,19 +11,47 @@ import {
   Grid,
   Box,
   Typography,
-  makeStyles,
   CircularProgress,
   Container,
-} from "@material-ui/core";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+  IconButton
+} from "@mui/material";
+
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useForm } from "react-hook-form";
-import Icon from "@material-ui/core/Icon";
+import Icon from "@mui/material/Icon";
+import { styled } from '@mui/material/styles';
+
+// Définir les styles avec styled
+const Paper = styled(Box)(({ theme }) => ({
+  marginTop: theme.spacing(8),
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+}));
+
+const AvatarStyled = styled(Avatar)(({ theme }) => ({
+  margin: theme.spacing(1),
+  backgroundColor: theme.palette.secondary.main,
+}));
+
+const FormStyled = styled(FormControl)(({ theme }) => ({
+  width: "100%",
+  marginTop: theme.spacing(3),
+}));
+
+const FormHide = styled(FormControl)({
+  display: "none",
+});
+
+const SubmitButton = styled(Button)(({ theme }) => ({
+  margin: theme.spacing(3, 0, 2),
+}));
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       <Link color="inherit" href="/">
-        Levi-Site
+      Levi's CineList
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -31,41 +59,18 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  formHide: {
-    display: "none",
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
-
 export default function Contact() {
-  const classes = useStyles();
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     mode: "onBlur",
   });
   const [data, setData] = useState({});
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
-  function handleClick() {
+  const handleClick = () => {
     setLoading(true);
-  }
+  };
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
@@ -73,18 +78,19 @@ export default function Contact() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Box className={classes.paper}>
-        <Avatar className={classes.avatar}>
+      <Paper>
+        <AvatarStyled>
           <LockOutlinedIcon />
-        </Avatar>
+        </AvatarStyled>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <FormControl
-          className={!result ? classes.form : classes.formHide}
+        <FormStyled
+          component="form"
           noValidate
           onSubmit={handleSubmit(() => {
-            setResult("your formulaire is successefuly send");
+            setResult("Your form is successfully sent");
+            setLoading(false);
           })}
         >
           <Grid container spacing={2}>
@@ -100,20 +106,21 @@ export default function Contact() {
                 type="text"
                 autoFocus
                 onChange={handleChange}
-                inputRef={register({
+                {...register("name", {
                   required: "First name is required!",
                   pattern: {
                     value: /^[^\d]+$/,
-                    message: "you must provide a valid name!",
+                    message: "You must provide a valid name!",
                   },
                   maxLength: {
                     value: 12,
-                    message: "Your name must be greater than 12 characters",
+                    message: "Your name must be less than 12 characters",
                   },
                 })}
+                error={!!errors.name}
+                helperText={errors.name ? errors.name.message : ""}
               />
             </Grid>
-            {errors["name"] && <Container>{errors["name"].message}</Container>}
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -125,27 +132,21 @@ export default function Contact() {
                 name="email"
                 autoComplete="email"
                 onChange={handleChange}
-                inputRef={register({
-                  required: "You must provide the email address!",
+                {...register("email", {
+                  required: "You must provide an email address!",
                   pattern: {
                     value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
                     message: "You must provide a valid email address!",
                   },
                 })}
+                error={!!errors.email}
+                helperText={errors.email ? errors.email.message : ""}
               />
             </Grid>
-            {errors.email && <Container>{errors.email.message}</Container>}
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 margin="normal"
-                inputRef={register({
-                  required: "You must provide a password.",
-                  minLength: {
-                    value: 6,
-                    message: "Your password must be greater than 6 characters",
-                  },
-                })}
                 required
                 fullWidth
                 name="password"
@@ -153,32 +154,38 @@ export default function Contact() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                {...register("password", {
+                  required: "You must provide a password.",
+                  minLength: {
+                    value: 6,
+                    message: "Your password must be at least 6 characters long",
+                  },
+                })}
+                error={!!errors.password}
+                helperText={errors.password ? errors.password.message : ""}
               />
             </Grid>
-            {errors.password && <Container>{errors.password.message}</Container>}
           </Grid>
           <FormControlLabel
             control={
               <Checkbox
-                inputRef={register}
+                {...register("remember")}
                 color="primary"
                 defaultValue={false}
-                name="remember"
               />
             }
             label="Remember me"
           />
-          <Button
+          <SubmitButton
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
             onClick={handleClick}
             endIcon={<Icon>send</Icon>}
           >
             Send
-          </Button>
+          </SubmitButton>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
@@ -191,11 +198,13 @@ export default function Contact() {
               </Link>
             </Grid>
           </Grid>
-          <Box>{loading && <CircularProgress />}</Box>
-        </FormControl>
-      </Box>
+          <Box mt={2}>{loading && <CircularProgress />}</Box>
+        </FormStyled>
+      </Paper>
       <Box mt={8}>
-        <h2>{result}</h2>
+        <Typography variant="h6" align="center">
+          {result}
+        </Typography>
         <Copyright />
       </Box>
     </Container>

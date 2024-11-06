@@ -60,7 +60,7 @@ export default function Api() {
   useEffect(() => {
     setLabel(state.lang === 'fr-FR'?'Film, serie ou acteur...':state.lang === 'en-US'?'Movie, series or actor...':'...סרט, סדרה או שחקן')
   }, [state.lang])
-  const keyApi = process.env.REACT_APP_API_KEY;
+  const keyApi = process.env.REACT_APP_THEMOVIEDB_API_KEY;
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value);

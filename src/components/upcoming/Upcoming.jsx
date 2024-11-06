@@ -1,9 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import {
-  Box,
-
-} from "@mui/material";
-
+import { Box } from "@mui/material";
 import axios from "axios";
 import Cards from "../Cards";
 import SplitButton from "../SplitButton";
@@ -14,7 +10,7 @@ export default function Upcoming() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [result, setResult] = useState([]);
   const { state, setState } = useContext(MyContext);
-  const keyApi = process.env.REACT_APP_API_KEY;
+  const keyApi = process.env.REACT_APP_THEMOVIEDB_API_KEY;
 
   useEffect(() => {
     // Utilisez une fonction async pour gérer la requête

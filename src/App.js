@@ -13,7 +13,7 @@ function App() {
 
   !isMobile && useEffect(() => {
       // Simuler un délai de chargement pour voir l'effet du splash screen
-      const timer = setTimeout(() => setLoading(false), 2000); // 3 secondes
+      const timer = setTimeout(() => setLoading(false), 3000); // 3 secondes
       return () => clearTimeout(timer);
   }, []);
 

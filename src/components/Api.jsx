@@ -44,6 +44,7 @@ const CenteredFormGroup = styled(FormGroup)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   marginTop: 10,
+  flexWrap: "nowrap"
 }));
 
 export default function Api() {
